@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dV0-7U-RDp">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Item-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NECalendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IkV-Q1-Z7y" customClass="NEElasticBarView" customModule="NECalendar" customModuleProvider="target">
+                                <rect key="frame" x="20" y="60" width="355" height="90"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="PHU-kH-Fcc"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="= =|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5Y-pr-68a">
+                                <rect key="frame" x="172" y="31" width="31" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCr-9f-Xzx" customClass="NCElasticBarView" customModule="NECalendar" customModuleProvider="target">
+                                <rect key="frame" x="20" y="158" width="355" height="460"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8901936412" green="0.89087069029999999" blue="0.89029854539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="OCr-9f-Xzx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="2kR-AV-1KL"/>
+                            <constraint firstAttribute="trailing" secondItem="IkV-Q1-Z7y" secondAttribute="trailing" id="FBj-Vy-xew"/>
+                            <constraint firstItem="IkV-Q1-Z7y" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="JqO-Mz-NeA"/>
+                            <constraint firstItem="IkV-Q1-Z7y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="KvS-Ot-Zto"/>
+                            <constraint firstItem="p5Y-pr-68a" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="11" id="P5Z-o8-QIW"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OCr-9f-Xzx" secondAttribute="bottom" id="fNM-BE-fhn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OCr-9f-Xzx" secondAttribute="trailing" constant="-16" id="p6c-cq-Tro"/>
+                            <constraint firstItem="OCr-9f-Xzx" firstAttribute="top" secondItem="IkV-Q1-Z7y" secondAttribute="bottom" constant="8" id="v3Y-8r-f4g"/>
+                            <constraint firstItem="p5Y-pr-68a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xTx-nk-Gdn"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="eA3-yB-rWX"/>
+                    <connections>
+                        <outlet property="barView" destination="IkV-Q1-Z7y" id="Gq5-Vd-UK7"/>
+                        <outlet property="calendarView" destination="OCr-9f-Xzx" id="8lp-62-e9G"/>
+                        <outlet property="month" destination="p5Y-pr-68a" id="7V6-ge-CAD"/>
+                        <outlet property="topBar" destination="IkV-Q1-Z7y" id="Xek-Id-7Ou"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="138.98050974512745"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="YVg-cT-KNC">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="dV0-7U-RDp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="Bm9-s1-fAW">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="r9n-8c-GgY"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RS4-MK-TBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+    </scenes>
+</document>

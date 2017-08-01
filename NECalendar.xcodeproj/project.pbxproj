@@ -8,13 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		18CA50BC1F2A7025006BFF4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50BB1F2A7025006BFF4D /* AppDelegate.swift */; };
-		18CA50BE1F2A7025006BFF4D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50BD1F2A7025006BFF4D /* ViewController.swift */; };
-		18CA50C11F2A7025006BFF4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CA50BF1F2A7025006BFF4D /* Main.storyboard */; };
 		18CA50C41F2A7025006BFF4D /* NECalendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50C21F2A7025006BFF4D /* NECalendar.xcdatamodeld */; };
 		18CA50C61F2A7025006BFF4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18CA50C51F2A7025006BFF4D /* Assets.xcassets */; };
 		18CA50C91F2A7025006BFF4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CA50C71F2A7025006BFF4D /* LaunchScreen.storyboard */; };
 		18CA50D41F2A7025006BFF4D /* NECalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50D31F2A7025006BFF4D /* NECalendarTests.swift */; };
 		18CA50DF1F2A7025006BFF4D /* NECalendarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50DE1F2A7025006BFF4D /* NECalendarUITests.swift */; };
+		18CA50ED1F2A7052006BFF4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CA50EC1F2A7052006BFF4D /* Main.storyboard */; };
+		18CA50F21F2A708C006BFF4D /* NEElasticBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50EE1F2A708C006BFF4D /* NEElasticBarCell.swift */; };
+		18CA50F31F2A708C006BFF4D /* NEElasticBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50EF1F2A708C006BFF4D /* NEElasticBarView.swift */; };
+		18CA50F41F2A708C006BFF4D /* NEElasticContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50F01F2A708C006BFF4D /* NEElasticContainer.swift */; };
+		18CA50F51F2A708C006BFF4D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50F11F2A708C006BFF4D /* ViewController.swift */; };
+		18CA50F91F2AD8CE006BFF4D /* NCElasticBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50F61F2AD8CE006BFF4D /* NCElasticBarCell.swift */; };
+		18CA50FA1F2AD8CE006BFF4D /* NCElasticBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50F71F2AD8CE006BFF4D /* NCElasticBarView.swift */; };
+		18CA50FB1F2AD8CE006BFF4D /* NCElasticContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CA50F81F2AD8CE006BFF4D /* NCElasticContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +43,6 @@
 /* Begin PBXFileReference section */
 		18CA50B81F2A7025006BFF4D /* NECalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NECalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18CA50BB1F2A7025006BFF4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		18CA50BD1F2A7025006BFF4D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		18CA50C01F2A7025006BFF4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18CA50C31F2A7025006BFF4D /* NECalendar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NECalendar.xcdatamodel; sourceTree = "<group>"; };
 		18CA50C51F2A7025006BFF4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18CA50C81F2A7025006BFF4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +53,14 @@
 		18CA50DA1F2A7025006BFF4D /* NECalendarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NECalendarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18CA50DE1F2A7025006BFF4D /* NECalendarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NECalendarUITests.swift; sourceTree = "<group>"; };
 		18CA50E01F2A7025006BFF4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18CA50EC1F2A7052006BFF4D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		18CA50EE1F2A708C006BFF4D /* NEElasticBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NEElasticBarCell.swift; sourceTree = "<group>"; };
+		18CA50EF1F2A708C006BFF4D /* NEElasticBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NEElasticBarView.swift; sourceTree = "<group>"; };
+		18CA50F01F2A708C006BFF4D /* NEElasticContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NEElasticContainer.swift; sourceTree = "<group>"; };
+		18CA50F11F2A708C006BFF4D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		18CA50F61F2AD8CE006BFF4D /* NCElasticBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCElasticBarCell.swift; sourceTree = "<group>"; };
+		18CA50F71F2AD8CE006BFF4D /* NCElasticBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCElasticBarView.swift; sourceTree = "<group>"; };
+		18CA50F81F2AD8CE006BFF4D /* NCElasticContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCElasticContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +112,14 @@
 			isa = PBXGroup;
 			children = (
 				18CA50BB1F2A7025006BFF4D /* AppDelegate.swift */,
-				18CA50BD1F2A7025006BFF4D /* ViewController.swift */,
-				18CA50BF1F2A7025006BFF4D /* Main.storyboard */,
+				18CA50F61F2AD8CE006BFF4D /* NCElasticBarCell.swift */,
+				18CA50F71F2AD8CE006BFF4D /* NCElasticBarView.swift */,
+				18CA50F81F2AD8CE006BFF4D /* NCElasticContainer.swift */,
+				18CA50EE1F2A708C006BFF4D /* NEElasticBarCell.swift */,
+				18CA50F01F2A708C006BFF4D /* NEElasticContainer.swift */,
+				18CA50EF1F2A708C006BFF4D /* NEElasticBarView.swift */,
+				18CA50F11F2A708C006BFF4D /* ViewController.swift */,
+				18CA50EC1F2A7052006BFF4D /* Main.storyboard */,
 				18CA50C51F2A7025006BFF4D /* Assets.xcassets */,
 				18CA50C71F2A7025006BFF4D /* LaunchScreen.storyboard */,
 				18CA50CA1F2A7025006BFF4D /* Info.plist */,
@@ -238,9 +256,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18CA50ED1F2A7052006BFF4D /* Main.storyboard in Resources */,
 				18CA50C91F2A7025006BFF4D /* LaunchScreen.storyboard in Resources */,
 				18CA50C61F2A7025006BFF4D /* Assets.xcassets in Resources */,
-				18CA50C11F2A7025006BFF4D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,9 +283,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18CA50F51F2A708C006BFF4D /* ViewController.swift in Sources */,
+				18CA50F21F2A708C006BFF4D /* NEElasticBarCell.swift in Sources */,
+				18CA50FB1F2AD8CE006BFF4D /* NCElasticContainer.swift in Sources */,
+				18CA50F91F2AD8CE006BFF4D /* NCElasticBarCell.swift in Sources */,
+				18CA50F41F2A708C006BFF4D /* NEElasticContainer.swift in Sources */,
+				18CA50F31F2A708C006BFF4D /* NEElasticBarView.swift in Sources */,
 				18CA50C41F2A7025006BFF4D /* NECalendar.xcdatamodeld in Sources */,
-				18CA50BE1F2A7025006BFF4D /* ViewController.swift in Sources */,
 				18CA50BC1F2A7025006BFF4D /* AppDelegate.swift in Sources */,
+				18CA50FA1F2AD8CE006BFF4D /* NCElasticBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,14 +327,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		18CA50BF1F2A7025006BFF4D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18CA50C01F2A7025006BFF4D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		18CA50C71F2A7025006BFF4D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -518,6 +534,7 @@
 				18CA50E51F2A7025006BFF4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18CA50E61F2A7025006BFF4D /* Build configuration list for PBXNativeTarget "NECalendarTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +543,7 @@
 				18CA50E81F2A7025006BFF4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18CA50E91F2A7025006BFF4D /* Build configuration list for PBXNativeTarget "NECalendarUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +552,7 @@
 				18CA50EB1F2A7025006BFF4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
