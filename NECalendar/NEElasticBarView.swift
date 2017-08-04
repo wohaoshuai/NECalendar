@@ -51,14 +51,14 @@ class NEElasticBarView: UIView, UIScrollViewDelegate, NEElasticBarViewDatasource
         let calendar = Calendar.current
         let date = Date()
         
-        let today = calendar.component(Calendar.Component.day, from: date)
+        // let today = calendar.component(Calendar.Component.day, from: date)
         var weekday = calendar.component(Calendar.Component.weekday, from: date)
         if weekday == 1{
             weekday = 8
         }
         
         let newDate = calendar.date(byAdding: .day, value: 2 - weekday, to: date)
-        let newToday = calendar.component(Calendar.Component.day, from: newDate!)
+        // let newToday = calendar.component(Calendar.Component.day, from: newDate!)
         
         
         overallStartDate = newDate

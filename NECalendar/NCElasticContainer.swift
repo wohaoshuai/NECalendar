@@ -31,18 +31,14 @@ class NCElasticContainer: UIView {
         
      to record which cell is expanded internally
      */
-    var expanded: Int?
     var cells = [NCElasticBarCell]()
     var layout = NCElasticContainerLayout()
     
-    // reload cells' frame without animation
+    // reload cells' frame
     func reloadCells(){
         subviews.forEach({$0.removeFromSuperview()})
         for (i, cell) in cells.enumerated(){
             addSubview(cell)
-            
-            print("self.frame.height")
-            print(self.frame.height)
             
             cell.frame = CGRect(x: calculateX(at: i), y: layout.topMargin, width: cell.frame.width, height: cell.frame.height)
         }
