@@ -41,9 +41,6 @@ class NEElasticContainer: UIView {
         for (i, cell) in cells.enumerated(){
             addSubview(cell)
             
-            print("self.frame.height")
-            print(self.frame.height)
-            
             cell.frame = CGRect(x: calculateX(at: i), y: layout.topMargin, width: cell.frame.width, height: cell.frame.height)
         }
     }

@@ -45,17 +45,20 @@ protocol NCElasticBarViewDatasource {
      Datasource should prepare each container, a container can contain any UIView subclasses. However, for this application, a NCElasticContainer will be used.
      To further simplify the problem, we might use Indexpath to combine the Container and Cell. However, we use separete methods now to maintain the flexibility.
      */
-    
     func cellForRowAt(_ barView: NCElasticBarView, at row: Int, at block: Int)->NCElasticBarCell?
     
+    /**
+     we must know the cell
+     */
     func numOfCellAt(_ barView: NCElasticBarView, at row: Int)->Int?
 
-    
 }
 
 protocol NCElasticBarViewDelegate {
     
     func containerAtRowWillLoad(_ barView: NCElasticBarView, at row: Int)
+    
+    func frameUpdateAt(_ barView: NCElasticBarView, of cell: NEElasticBarCell, at row: Int, at block: Int)
 
 }
 
@@ -73,62 +76,17 @@ struct NCElasticBarAnimationDuration {
 class NCElasticBarView: UIView, UIScrollViewDelegate {
     
     var delegate: NCElasticBarViewDelegate?
+    var datasource: NCElasticBarViewDatasource?
+    
+    var scrollView = UIScrollView()
+    var tempView = UIScrollView()
     
     var mainContainer: NCElasticContainer?
     var prevContainer: NCElasticContainer?
     var nextContainer: NCElasticContainer?
     
-    
-    func containerAtRow(_ scrollView: UIScrollView, at row: Int, of config: NCElasticContainerConfig = NCElasticContainerConfig()) -> NCElasticContainer? {
-        
-        guard row > config.minRow && row < config.maxRow else {
-            return nil
-        }
-        
-        
-        if let d = delegate{
-            d.containerAtRowWillLoad(self, at: row)
-        }
-        
-        let container = NCElasticContainer()
-        var cells = [NCElasticBarCell]()
-
-        
-        if let datasource = self.datasource{
-            if let cellNum = datasource.numOfCellAt(self, at: row){
-                // create cells here
-                guard cellNum > 0 else {
-                    print("invalid cell number")
-                    return nil
-                }
-                
-                for blockIndex in 0...cellNum{
-                    
-                    // there might be empty cell which is okay in this case
-                    if let cell = datasource.cellForRowAt(self, at: row, at: blockIndex){
-                        cells.append(cell)
-                    }
-                }
-            }
-        }
-
-        // cells can be an empty array
-        container.setCells(of: cells)
-        return container
-    }
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     var currentRow = 0
-    var datasource: NCElasticBarViewDatasource?
-    var scrollView = UIScrollView()
-    var tempView = UIScrollView()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
@@ -314,7 +272,42 @@ class NCElasticBarView: UIView, UIScrollViewDelegate {
         self.scrollView = temp
     }
     
-    // synchronization
+    func containerAtRow(_ scrollView: UIScrollView, at row: Int, of config: NCElasticContainerConfig = NCElasticContainerConfig()) -> NCElasticContainer? {
+        
+        guard row > config.minRow && row < config.maxRow else {
+            return nil
+        }
+        
+        if let d = delegate{
+            d.containerAtRowWillLoad(self, at: row)
+        }
+        
+        let container = NCElasticContainer()
+        var cells = [NCElasticBarCell]()
+        
+        if let datasource = self.datasource{
+            if let cellNum = datasource.numOfCellAt(self, at: row){
+                // create cells here
+                guard cellNum > 0 else {
+                    print("invalid cell number")
+                    return nil
+                }
+                
+                for blockIndex in 0...cellNum{
+                    // there might be empty cell which is okay in this case
+                    if let cell = datasource.cellForRowAt(self, at: row, at: blockIndex){
+                        cells.append(cell)
+                    }
+                }
+            }
+        }
+        
+        // cells can be an empty array
+        container.setCells(of: cells)
+        return container
+    }
+    
+//    // synchronization
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        for linker in linkers{
 //            self.synchronizeScrollView(linker.scrollView, toScrollView: self.scrollView)

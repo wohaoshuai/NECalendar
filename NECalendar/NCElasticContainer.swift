@@ -94,111 +94,47 @@ class NCElasticContainer: UIView {
      Reload frame live (without remove previous subviews, bur instead modify the frames of the old view) Animated.
      NOTICE: origin and style is not used currently.
      */
-    func reloadFrames(origin: NCElasticBarCellExpandChange, style: NCElasticBarCellExpandStyle, changes: [NCElasticBarCellExpandChange], animated: Bool = true){
+    func reloadFrames(changes: [NCElasticBarCellExpandChange], animated: Bool = true){
         
-        
-        // origin may not change at all
-        // changes has no order
-        if let row = origin.row {
-            guard row >= 0 && row < cells.count else {
-                print("invalid origin")
-                return
-            }
-        }
-        
-        // we must calculate the frame first from left to right
-        // how ?
-        // if we need to replace the sub // we might have to move the offset in repalcable view // which we have of course
-        
-        // that is we calculate two version of frame and place them different 
-        // however how can we copy the setting 
-        
-        // right most 
         var maps = transformChange(changes: changes)
-        var itemMaps = transformItemChange(changes: changes)
         var frames = [CGRect]()
+        
         var offset = CGFloat(0)
         for (i, cell) in subviews.enumerated(){
             let frame = CGRect(x: cell.frame.origin.x + offset, y: cell.frame.origin.y, width: maps[i] ?? cell.frame.width, height: cell.frame.height)
             frames.append(frame)
             offset += (maps[i] ?? cell.frame.width) - cell.frame.width
-            print(offset)
         }
         
         if animated{
-            UIView.animate(withDuration: NCElasticBarAnimationDuration.fast, animations: {
-                for (i, subview) in self.subviews.enumerated(){
-                    subview.frame = frames[i]
-                    subview.layoutIfNeeded()
-                    
-                    if let e = itemMaps[i]?.expanding{
-                        if e == true{
-                            subview.subviews.forEach({
-                                if let l = ($0 as? UILabel){
-                                    l.textColor = UIColor.white
-                                }
-                            })
-                            subview.backgroundColor = NCColor.blue
-                        }
-                    }
-                    
-                    if let e = itemMaps[i]?.shrinking{
-                        if e == true{
-                            subview.subviews.forEach({
-                                if let l = ($0 as? UILabel){
-                                    l.textColor = NCColor.blue
-                                }
-                            })
-                            subview.backgroundColor = UIColor.white
-                        }
-                    }
-                    
-                }
-                self.barViewShouldUpdate(offset: offset)
+            UIView.animate(withDuration: NCElasticBarAnimationDuration.fast, animations: { // config-point
+                self.transformCells(offset: offset, frames: frames)
             })
         } else{
-            
-            for (i, subview) in self.subviews.enumerated(){
-                subview.frame = frames[i]
-                subview.layoutIfNeeded()
-                
-                if let e = itemMaps[i]?.expanding{
-                    if e == true{
-                        subview.subviews.forEach({
-                            if let l = ($0 as? UILabel){
-                                l.textColor = UIColor.white
-                            }
-                        })
-                        subview.backgroundColor = NCColor.blue
-                    }
-                }
-                
-                if let e = itemMaps[i]?.shrinking{
-                    if e == true{
-                        subview.subviews.forEach({
-                            if let l = ($0 as? UILabel){
-                                l.textColor = NCColor.blue
-                            }
-                        })
-                        subview.backgroundColor = UIColor.white
-                    }
-                }
-                
-            }
-            self.barViewShouldUpdate(offset: offset)
-            
+            self.transformCells(offset: offset, frames: frames)
         }
-        
-        // the end offset is the offset of content view and frame
-        // possible to have bug situation
-//        self.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width + offset, height: frame.height)
-        // update content view size
+
     }
     
     /**
-        
-    Helper funciton to transform from one layer to another. 
-     This simplify the internal code while keeping the API well-defined for other programmer
+     Transform the cell's frames
+     */
+    func transformCells(offset: CGFloat, frames: [CGRect]){
+        for (i, subview) in self.subviews.enumerated(){  // does the subview means the cell?
+            subview.frame = frames[i]
+            subview.layoutIfNeeded()
+            barViewShouldUpdate(offset: offset)
+            if let barview = self.superview as? NCElasticBarView{
+                if let d = barview.delegate{
+                    d.frameUpdateAt(barview, of: subview, at: barview.currentRow, at: i)
+                }
+            }
+        }
+    }
+    
+    /**
+        Helper funciton to transform from one layer to another.
+        This simplify the internal code while keeping the API well-defined for other programmer
      */
     func transformChange(changes: [NCElasticBarCellExpandChange])->[Int:CGFloat]{
         var res = [Int:CGFloat]()
@@ -212,24 +148,12 @@ class NCElasticContainer: UIView {
         return res
     }
     
-    func transformItemChange(changes: [NCElasticBarCellExpandChange])->[Int:NCElasticBarCellExpandChange]{
-        var res = [Int:NCElasticBarCellExpandChange]()
-        for change in changes{
-            if let row = change.row{
-                res[row] = change
-            }
-        }
-        return res
-    }
-    
     /**
         Helper function for reloading the frame. Update the container's frame. [animation supported]
      */
     func barViewShouldUpdate(offset: CGFloat){
-        print("offset: \(offset)")
         if let barView = (self.superview?.superview as? NCElasticBarView){
             let offsetNext = offset
-            print("offset: \(offset)")
 
             if let prev = barView.prevContainer{
                 if self === prev {
@@ -257,13 +181,6 @@ class NCElasticContainer: UIView {
             }
         }
     }
-    
-}
-
-enum NCElasticBarCellExpandStyle {
-    case center
-    case right
-    case left
 }
 
 /**
@@ -276,8 +193,6 @@ enum NCElasticBarCellExpandStyle {
 struct NCElasticBarCellExpandChange {
     var row: Int?
     var width: CGFloat?
-    var expanding: Bool = false
-    var shrinking: Bool = false
 }
 
 
