@@ -1,6 +1,6 @@
 //
 //  NEElasticBarView.swift
-//  cheer
+//  cheer6
 //
 //  Created by Kelong Wu on 2017/7/18.
 //  Copyright © 2017年 Evolvement Apps. All rights reserved.

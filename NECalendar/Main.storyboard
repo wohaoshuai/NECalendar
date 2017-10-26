@@ -13,7 +13,7 @@
         <!--Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NECalendar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="NECalendar" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -22,6 +22,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="= =|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5Y-pr-68a">
+                                <rect key="frame" x="172" y="31" width="31" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IkV-Q1-Z7y" customClass="NEElasticBarView" customModule="NECalendar" customModuleProvider="target">
                                 <rect key="frame" x="20" y="60" width="355" height="90"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -29,34 +35,43 @@
                                     <constraint firstAttribute="height" constant="90" id="PHU-kH-Fcc"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="= =|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5Y-pr-68a">
-                                <rect key="frame" x="172" y="31" width="31" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCr-9f-Xzx" customClass="NCElasticBarView" customModule="NECalendar" customModuleProvider="target">
-                                <rect key="frame" x="20" y="158" width="355" height="460"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MI1-U2-H92">
+                                <rect key="frame" x="20" y="232" width="355" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="vBb-4A-obN"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="c8F-Km-B9h" kind="embed" identifier="content" id="20Z-EG-qJO"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DlM-gN-ksE">
+                                <rect key="frame" x="20" y="378" width="355" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="AIj-E0-91r"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="GKy-lV-lZI" kind="embed" identifier="topbar" id="rSY-5l-AGj"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.8901936412" green="0.89087069029999999" blue="0.89029854539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="OCr-9f-Xzx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="2kR-AV-1KL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MI1-U2-H92" secondAttribute="trailing" constant="-16" id="30d-Gi-aLb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DlM-gN-ksE" secondAttribute="trailing" constant="-16" id="B6d-NL-ka3"/>
+                            <constraint firstItem="DlM-gN-ksE" firstAttribute="leading" secondItem="MI1-U2-H92" secondAttribute="leading" id="Bvc-As-a9M"/>
                             <constraint firstAttribute="trailing" secondItem="IkV-Q1-Z7y" secondAttribute="trailing" id="FBj-Vy-xew"/>
                             <constraint firstItem="IkV-Q1-Z7y" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="JqO-Mz-NeA"/>
                             <constraint firstItem="IkV-Q1-Z7y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="KvS-Ot-Zto"/>
+                            <constraint firstItem="DlM-gN-ksE" firstAttribute="top" secondItem="MI1-U2-H92" secondAttribute="bottom" constant="56" id="M7z-o5-EHH"/>
                             <constraint firstItem="p5Y-pr-68a" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="11" id="P5Z-o8-QIW"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OCr-9f-Xzx" secondAttribute="bottom" id="fNM-BE-fhn"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OCr-9f-Xzx" secondAttribute="trailing" constant="-16" id="p6c-cq-Tro"/>
-                            <constraint firstItem="OCr-9f-Xzx" firstAttribute="top" secondItem="IkV-Q1-Z7y" secondAttribute="bottom" constant="8" id="v3Y-8r-f4g"/>
+                            <constraint firstItem="MI1-U2-H92" firstAttribute="top" secondItem="IkV-Q1-Z7y" secondAttribute="bottom" constant="82" id="nJl-Wy-ww7"/>
+                            <constraint firstItem="MI1-U2-H92" firstAttribute="width" secondItem="IkV-Q1-Z7y" secondAttribute="width" id="rmp-Cz-dWo"/>
                             <constraint firstItem="p5Y-pr-68a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xTx-nk-Gdn"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="eA3-yB-rWX"/>
                     <connections>
                         <outlet property="barView" destination="IkV-Q1-Z7y" id="Gq5-Vd-UK7"/>
-                        <outlet property="calendarView" destination="OCr-9f-Xzx" id="8lp-62-e9G"/>
                         <outlet property="month" destination="p5Y-pr-68a" id="7V6-ge-CAD"/>
                         <outlet property="topBar" destination="IkV-Q1-Z7y" id="Xek-Id-7Ou"/>
                     </connections>
@@ -71,6 +86,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="dV0-7U-RDp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Bm9-s1-fAW">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
@@ -81,6 +97,65 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RS4-MK-TBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+        <!--Week Content View Controller-->
+        <scene sceneID="XfJ-wR-Q5o">
+            <objects>
+                <viewController id="c8F-Km-B9h" customClass="WeekContentViewController" customModule="NECalendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ae1-ep-iBK"/>
+                        <viewControllerLayoutGuide type="bottom" id="hJi-U3-AnU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Iqn-Sa-qsU">
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="paa-Wh-KsR" userLabel="NEElasticView" customClass="NCElasticBarView" customModule="NECalendar" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="paa-Wh-KsR" firstAttribute="leading" secondItem="Iqn-Sa-qsU" secondAttribute="leading" id="5hC-tI-TFa"/>
+                            <constraint firstItem="hJi-U3-AnU" firstAttribute="top" secondItem="paa-Wh-KsR" secondAttribute="bottom" id="Ec5-U6-tHY"/>
+                            <constraint firstAttribute="trailing" secondItem="paa-Wh-KsR" secondAttribute="trailing" id="iiT-Ra-iIY"/>
+                            <constraint firstItem="paa-Wh-KsR" firstAttribute="top" secondItem="ae1-ep-iBK" secondAttribute="bottom" id="rs6-cU-TJB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="barview" destination="paa-Wh-KsR" id="SFx-jy-r6r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Ln-FH-qne" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1902" y="139"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="gsB-JN-tM1">
+            <objects>
+                <viewController id="GKy-lV-lZI" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="T9j-9X-o8q">
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xwN-7H-vXn">
+                                <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="xwN-7H-vXn" secondAttribute="trailing" id="E4c-GG-fay"/>
+                            <constraint firstAttribute="bottom" secondItem="xwN-7H-vXn" secondAttribute="bottom" id="M3u-MQ-Uur"/>
+                            <constraint firstItem="xwN-7H-vXn" firstAttribute="leading" secondItem="T9j-9X-o8q" secondAttribute="leading" id="TJS-OT-fib"/>
+                            <constraint firstItem="xwN-7H-vXn" firstAttribute="top" secondItem="T9j-9X-o8q" secondAttribute="top" id="Xos-c9-fk2"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kbd-4k-QCi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="630.58470764617698"/>
         </scene>
     </scenes>
 </document>

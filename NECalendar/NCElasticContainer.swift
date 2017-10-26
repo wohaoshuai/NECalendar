@@ -8,6 +8,10 @@
 
 import UIKit
 
+// MARK: - -----Configuration-----
+// Configuration
+//-----------------------------------------------------------------------------------------------------------------
+
 // constants controlling layout of cell in the container
 struct NCElasticContainerLayout{
     var leftMargin = CGFloat(5)
@@ -17,23 +21,35 @@ struct NCElasticContainerLayout{
     var space = CGFloat(5)
 }
 
+// MARK: - -----Construction Package-----
+// Construction Package
+
+/**
+ 
+ Define how the cell in container will expand
+ 1.row -  new row
+ 2.width - new width
+ if any of them is nil, nothing will be done.
+ */
+struct NCElasticBarCellExpandChange {
+    var row: Int?
+    var width: CGFloat?
+}
+
+// MARK: - -----Contaienr (Main)-----
+// Container (Main)
+//-----------------------------------------------------------------------------------------------------------------
 class NCElasticContainer: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-    
+    // MARK: - 0. Shared Properties / Helper Functions
     /**
-        
+     
      to record which cell is expanded internally
      */
     var cells = [NCElasticBarCell]()
     var layout = NCElasticContainerLayout()
     
+    // MARK: - 1.Load Container
     // reload cells' frame
     func reloadCells(){
         subviews.forEach({$0.removeFromSuperview()})
@@ -79,6 +95,8 @@ class NCElasticContainer: UIView {
         
     }
     
+    // MARK: - 2.Live update the container
+    
     // origin of change - origin change right / left - each (too much) block size / changed block size
     // i - origin , (x, y) - leftPressure / rightPressure
     // direction is decided by center pressure
@@ -121,15 +139,16 @@ class NCElasticContainer: UIView {
      */
     func transformCells(offset: CGFloat, frames: [CGRect]){
         for (i, subview) in self.subviews.enumerated(){  // does the subview means the cell?
-            subview.frame = frames[i]
-            subview.layoutIfNeeded()
-            barViewShouldUpdate(offset: offset)
+            let newFrame = frames[i]
             if let barview = self.superview as? NCElasticBarView{
                 if let d = barview.delegate{
-                    d.frameUpdateAt(barview, of: subview, at: barview.currentRow, at: i)
+                    d.frameUpdateAt(barview, of: subview as! NEElasticBarCell, at: barview.currentRow, at: i, with: newFrame)
                 }
             }
+            subview.frame = newFrame
+            subview.layoutIfNeeded()
         }
+        barViewShouldUpdate(offset: offset)
     }
     
     /**
@@ -181,18 +200,6 @@ class NCElasticContainer: UIView {
             }
         }
     }
-}
-
-/**
-    
- Define how the cell in container will expand 
- 1.row -  new row
- 2.width - new width
- if any of them is nil, nothing will be done.
- */
-struct NCElasticBarCellExpandChange {
-    var row: Int?
-    var width: CGFloat?
 }
 
 

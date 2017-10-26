@@ -8,58 +8,18 @@
 
 import UIKit
 
+// MARK: -----Configuration-----
+// Configuration
+//-----------------------------------------------------------------------------------------------------------------
+
+/**
+    Configuration of how a container should be load
+ */
 struct NCElasticContainerConfig {
     
     var main: Bool = false
-    var minRow: Int = -50
-    var maxRow: Int = 50
-    
-}
-
-extension UIColor {
-    convenience init(hexString: String) {
-        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int = UInt32()
-        Scanner(string: hex).scanHexInt32(&int)
-        let a, r, g, b: UInt32
-        switch hex.characters.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
-    }
-}
-
-struct NCColor {
-    static let blue = UIColor(hexString: "0076FF")
-}
-
-protocol NCElasticBarViewDatasource {
-    /**
-     Datasource should prepare each container, a container can contain any UIView subclasses. However, for this application, a NCElasticContainer will be used.
-     To further simplify the problem, we might use Indexpath to combine the Container and Cell. However, we use separete methods now to maintain the flexibility.
-     */
-    func cellForRowAt(_ barView: NCElasticBarView, at row: Int, at block: Int)->NCElasticBarCell?
-    
-    /**
-     we must know the cell
-     */
-    func numOfCellAt(_ barView: NCElasticBarView, at row: Int)->Int?
-
-}
-
-protocol NCElasticBarViewDelegate {
-    
-    func containerAtRowWillLoad(_ barView: NCElasticBarView, at row: Int)
-    
-    func frameUpdateAt(_ barView: NCElasticBarView, of cell: NEElasticBarCell, at row: Int, at block: Int)
-
+    var minRow: Int = -500
+    var maxRow: Int = 500
 }
 
 struct NCElasticBarCellSize {
@@ -73,10 +33,66 @@ struct NCElasticBarAnimationDuration {
     static let fast = 0.15
 }
 
+// MARK: - -----Datasource-----
+//Datasource
+//-----------------------------------------------------------------------------------------------------------------
+protocol NCElasticBarViewDatasource {
+    /**
+     Ask datasouce the cell in given position, where parameter row determines index of container, block determines index of cell in a given container.
+     
+     - parameters:
+        - barView: the bar-view object requesting this information
+        - row: the row of a container/section in the view
+        - block: the index of block/cell in a container
+     */
+    func cellForRowAt(_ barView: NCElasticBarView, at row: Int, at block: Int)->NCElasticBarCell?
+    
+    /**
+     Ask datasource the number of cell in a given position
+     
+     - parameters:
+        - barView: the bar-view object requesting this information
+        - row: the row of a container the view
+     */
+    func numOfCellAt(_ barView: NCElasticBarView, at row: Int)->Int?
+
+}
+
+// MARK: - -----Delegate-----
+// Delegate
+//-----------------------------------------------------------------------------------------------------------------
+protocol NCElasticBarViewDelegate {
+    
+    /**
+     Tell the delegate the container at a given row is about to load.
+     */
+    func containerAtRowWillLoad(_ barView: NCElasticBarView, at row: Int, of config: NCElasticContainerConfig)
+    
+    /**
+     Ask the delegate to update the cell at a given position with a new frame. Usually used to make custom change to view with animation.
+     */
+    func frameUpdateAt(_ barView: NCElasticBarView, of cell: NEElasticBarCell, at row: Int, at block: Int, with frame: CGRect)
+
+}
+
+// MARK: - -----View (Main)-----
+// View (Main)
+//-----------------------------------------------------------------------------------------------------------------
 class NCElasticBarView: UIView, UIScrollViewDelegate {
     
-    var delegate: NCElasticBarViewDelegate?
-    var datasource: NCElasticBarViewDatasource?
+    // MARK: - 0. Shared Properties / Helper Functions
+    var delegate: NCElasticBarViewDelegate?{
+        didSet{
+            if NCDeveloper.debug{print("delegate has been set")}
+            loadRow(of: scrollView, at: currentRow)
+        }
+    }
+    var datasource: NCElasticBarViewDatasource? {
+        didSet{
+            if NCDeveloper.debug{print("datasource has been set")}
+            loadRow(of: scrollView, at: currentRow)
+        }
+    }
     
     var scrollView = UIScrollView()
     var tempView = UIScrollView()
@@ -87,6 +103,7 @@ class NCElasticBarView: UIView, UIScrollViewDelegate {
     
     var currentRow = 0
 
+    // MARK: - 1.Load view
     override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
@@ -98,6 +115,8 @@ class NCElasticBarView: UIView, UIScrollViewDelegate {
     }
     
     func initView() {
+        
+        if NCDeveloper.debug{print("initView")}
         
         addScrollView(tempView)
         addScrollView(scrollView)
@@ -188,8 +207,11 @@ class NCElasticBarView: UIView, UIScrollViewDelegate {
         }
     }
     
-    // MARK: - Switch Between Rows
+    // MARK: - 2.Switch Between Rows
     var startOffset: CGFloat?
+    var isPaging: Bool = false
+    var offset: CGFloat = 0
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         startOffset = scrollView.contentOffset.x
     }
@@ -213,9 +235,6 @@ class NCElasticBarView: UIView, UIScrollViewDelegate {
             prevPage()
         }
     }
-    
-    var isPaging: Bool = false
-    var offset: CGFloat = 0
     
     func nextPage() {
         if containerAtRow(scrollView, at: currentRow + 1) == nil {
@@ -272,6 +291,10 @@ class NCElasticBarView: UIView, UIScrollViewDelegate {
         self.scrollView = temp
     }
     
+    // MARK: - 3.Load Container and Cells
+    /**
+     Reload container at given row
+     */
     func containerAtRow(_ scrollView: UIScrollView, at row: Int, of config: NCElasticContainerConfig = NCElasticContainerConfig()) -> NCElasticContainer? {
         
         guard row > config.minRow && row < config.maxRow else {
@@ -279,13 +302,18 @@ class NCElasticBarView: UIView, UIScrollViewDelegate {
         }
         
         if let d = delegate{
-            d.containerAtRowWillLoad(self, at: row)
+            d.containerAtRowWillLoad(self, at: row, of: config)
         }
         
         let container = NCElasticContainer()
         var cells = [NCElasticBarCell]()
         
+        if NCDeveloper.debug{print("containerAtRow")}
+        
         if let datasource = self.datasource{
+            
+            if NCDeveloper.debug{print("datasource is available")}
+            
             if let cellNum = datasource.numOfCellAt(self, at: row){
                 // create cells here
                 guard cellNum > 0 else {
@@ -306,6 +334,7 @@ class NCElasticBarView: UIView, UIScrollViewDelegate {
         container.setCells(of: cells)
         return container
     }
+
     
 //    // synchronization
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, NEElasticBarViewDelegate {
+class MainViewController: UIViewController, NEElasticBarViewDelegate {
+    
     @IBOutlet weak var topBar: NEElasticBarView!
     @IBOutlet weak var barView: NEElasticBarView!
     @IBOutlet weak var month: UILabel!
     
-    @IBOutlet weak var calendarView: NCElasticBarView!
     
     
     override func viewDidLoad() {
@@ -31,12 +31,9 @@ class ViewController: UIViewController, NEElasticBarViewDelegate {
         
     }
     
-
-    
     func newDateSelected(barView: NEElasticBarView, date: Date) {
         updateDate(date: date)
     }
-    
     
     var monthMap = ["= =|", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     func updateDate(date: Date){
@@ -44,6 +41,29 @@ class ViewController: UIViewController, NEElasticBarViewDelegate {
         let monthNum = calendar.component(.month, from: date)
         let yearNum = calendar.component(.year, from: date)
         self.month.text = "\(self.monthMap[monthNum]), \(yearNum)"
+    }
+    
+    var topbar: TopBarViewController!
+    var content: WeekContentViewController!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let id = segue.identifier{
+            switch id {
+            case "topbar":
+                if let d = segue.destination as? TopBarViewController{
+                    d.main = self
+                    topbar = d
+                }
+            case "content":
+                if let d = segue.destination as? WeekContentViewController{
+                    d.main = self
+                    content = d
+                }
+            default:
+                break
+            }
+        }
     }
 }
 
